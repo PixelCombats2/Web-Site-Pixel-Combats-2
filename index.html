@@ -17,7 +17,7 @@
 			<li><a href="#Home">Главная</a></li>
 			<li><a href="#">Новости</a></li>
 			<li><a href="#Cybersport">Киберспорт</a></li>
-      <li><a href="#">Правила</a></li>
+      <li><a href="#" target="_blank">Правила</a></li>
 			<li><a href="#Contacts">Контакты</a></li>
 		</ul>
 	<div class="profile-icon">
@@ -51,19 +51,45 @@
 	<p class="last-updated">Обновлено: <span id="currentDate">--.--.----</span></p>
   </section>
 	</div>
-	<script src="script.js"></script>
+  <!-- Модальное окно регистрации -->
+<div id="regModal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>Регистрация</h2>
+        <form id="regForm">
+            <div class="input-group">
+                <input type="text" placeholder="Ваш никнейм" required>
+            </div>
+            <div class="input-group">
+                <input type="text" maxlength="16" placeholder="ID в игре" required>
+            </div>
+            <div class="input-group">
+                <input type="email" placeholder="Email" required>
+            </div>
+            <div class="input-group">
+                <input type="password" placeholder="Пароль" maxlength="12" required>
+            </div>
+            <div class="input-group">
+                <input type="password" placeholder="Повторите пароль" maxlength="12" required>
+            </div>
+            <button type="submit" class="btn-submit">Создать аккаунт</button>
+        </form>
+    </div>
+</div>
+<!-- Скрипт -->
+ <script src="Scripts/script.js"></script>
  <script>
     const clans = [
-        { name: "Monolith", leader: "K1lls", logo: "https://i.pravatar.cc/100?img=1", prestige: "10", color: "green" },
+        { name: "Monolith", leader: "K1lls", logo: "", prestige: "10", color: "green" },
         { name: "AEjen", leader: "Enjoy", logo: "img/clans/AEjen.png", prestige: "2", color: "green" },
-        { name: "JSST", leader: "Сияxz, Flafi*, Живчик", logo: "img/clans/JSST.jpg", prestige: "0", color: "grey" },
+        { name: "JSST", leader: "Сияxz, Flafi4, Живчик", logo: "img/clans/JSST.jpg", prestige: "0", color: "grey" },
         { name: "FUN", leader: "Asriel", logo: "img/clans/FUN.jpg", prestige: "10", color: "green" },
         { name: "Adrenaline", leader: "Ggsh", logo: "img/clans/Adrenaline.jpg", prestige: "1", color: "green" },
         { name: "Империум", leader: "Azazel, T'ran", logo: "img/clans/Империум.jpg", prestige: "0", color: "grey" },
-        { name: "SCHOOL BRAIN", leader: "Mr.Tip", logo: "https://i.pravatar.cc/100?img=11", prestige: "0", color: "grey" },
-        { name: "NAVI", leader: "Napoleon", logo: "https://i.pravatar.cc/100?img=12", prestige: "0", color: "grey" },
-        { name: "Ударный Отряд", leader: "Lukech", logo: "https://i.pravatar.cc/100?img=13", prestige: "0", color: "grey" },
-        { name: "JVDE", leader: "Леxa228", logo: "https://i.pravatar.cc/100?img=17", prestige: "0", color: "grey" }
+        { name: "SCHOOL BRAIN", leader: "Mr.Tip", logo: "", prestige: "0", color: "grey" },
+        { name: "NAVI", leader: "Napoleon", logo: "", prestige: "0", color: "grey" },
+        { name: "Ударный Отряд", leader: "Lukech", logo: "", prestige: "0", color: "grey" },
+        { name: "JVDE", leader: "Леxa228", logo: "", prestige: "0", color: "grey" }
     ];
     const list = document.getElementById('clansList');
     if (list) {
@@ -71,11 +97,27 @@
         clans.forEach((clan, i) => {
             const item = document.createElement('div');
             item.className = 'clan-card';
+            //Цвета для ТОП-3
+            let rankColor = '#94a3b8';
+            let hasSpecialBorder = false;
 
-            let numberColor = '#94a3b8'; 
-            if(i === 0) numberColor = '#ffd700'; // Золото
-            else if(i === 1) numberColor = '#c0c0c0'; // Серебро
-            else if(i === 2) numberColor = '#cd7f32'; // Бронза
+            if(i === 0) { 
+                rankColor = '#ffd700';
+                hasSpecialBorder = true;
+            } 
+            else if(i === 1) { 
+                rankColor = '#c0c0c0';
+                hasSpecialBorder = true;
+            } 
+            else if(i === 2) { 
+                rankColor = '#cd7f32';
+                hasSpecialBorder = true;
+            }
+
+            if (hasSpecialBorder) {
+                item.style.border = `3px solid ${rankColor}`;
+                item.style.boxShadow = `0 0 15px ${rankColor}33`; //прозрачность
+            }
 
             //Цвет престижа
             let prestigeColorClass = 'p-grey';
@@ -85,11 +127,11 @@
             const label = (i < 5) ? "prestige: " : "";
 
             const avatarBorderStyle = (i < 3) 
-                ? `border: 2px solid ${numberColor};` 
+                ? `border: 2px solid ${rankColor};` 
                 : `border: 2px solid rgba(255, 255, 255, 0.1);`;
 
             item.innerHTML = `
-                <div class="rank" style="color: ${numberColor}; width: 30px; font-weight: bold;">${i + 1}.</div>
+                <div class="rank" style="color: ${rankColor}; width: 30px; font-weight: bold;">${i + 1}.</div>
                 <div class="clan-avatar-container" style="${avatarBorderStyle}">
                     <img src="${clan.logo}" alt="Лого" onerror="this.src='https://via.placeholder.com/45/334155/f8fafc?text=? '">
                 </div>
@@ -102,6 +144,7 @@
             list.appendChild(item);
         });
     }
+
     const dateEl = document.getElementById('currentDate');
     if (dateEl) dateEl.innerText = new Date().toLocaleDateString();
 </script>
