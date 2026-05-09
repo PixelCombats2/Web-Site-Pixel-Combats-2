@@ -390,58 +390,82 @@ footer {
   padding-bottom: 20px;
 }
 
-/* --- МОБИЛЬНАЯ ОПТИМИЗАЦИЯ --- */
 @media (max-width: 768px) {
-    /* Навигация */
-    nav {
-    padding: 10px 15px;
-  }
-  .nav-links {
-    display: none; /* Скрываем ссылки*/
-  }
-/*Hero*/
-    .hero {
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
-    margin-top: 80px;
-  }
-  .game-img {
-    width: 150px; /* Уменьшаем картинку */
-    margin-bottom: 20px;
-  }
-  .hero-content h1 {
-    font-size: 1.8rem;
-  }
-/* Список кланов */
+    /* Стили для кнопки гамбургера */
+    .menu-icon {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 20px;
+        cursor: pointer;
+        order: 1;
+    }
+    .menu-icon span {
+        width: 100%;
+        height: 3px;
+        background-color: white;
+        border-radius: 2px;
+        transition: 0.3s;
+    }
+    /* Мобильное меню (выпадающее) */
+    .nav-links {
+        display: none; /* Скрыто по умолчанию */
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        gap: 15px;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        z-index: 999;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
     .clan-card {
-    padding: 10px;
-    flex-wrap: wrap; /* Разрешаем перенос элементов */
-    justify-content: space-between;
-  }
-  .clan-name {
-    width: auto;
-    order: 2; /* Меняем порядок */
-    font-size: 1rem;
-  }
-    .clan-avatar-container {
-    order: 1;
-    margin-right: 10px;
-  }
-    .clan-leader {
-    width: 100%; /* Лидер на новую строку */
-    text-align: left;
-    order: 4;
-    padding: 5px 0 0 45px;
-  }
-  .clan-prestige {
-    order: 3;
-    width: auto;
-    text-align: right;
-  }
-/*Модальное окно*/
-  .modal-content {
-    width: 90%;
-    padding: 20px;
-  }
+        padding: 15px;
+        display: grid;
+        grid-template-columns: 40px 50px 1fr;
+        grid-template-areas: 
+          "rank avatar name"
+          "leader leader leader"
+        "prestige prestige prestige";
+    gap: 10px;
+}
+.rank { grid-area: rank; }
+.clan-avatar-container {
+  grid-area: avatar;
+  margin: 0; 
+}
+.clan-name { 
+        grid-area: name; 
+        width: auto; 
+        margin: 0; 
+        align-self: center;
+        font-size: 1.1rem;
+    }
+
+    .clan-leader { 
+        grid-area: leader; 
+        text-align: left; 
+        padding: 0; 
+        font-size: 0.8rem;
+        opacity: 0.7;
+    }
+.clan-prestige { 
+  grid-area: prestige; 
+  text-align: left; 
+  width: 100%;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding-top: 5px;
+}
+/* Отступы для Hero */
+.hero {
+  margin-top: 100px;
+  padding: 20px; }
 }
