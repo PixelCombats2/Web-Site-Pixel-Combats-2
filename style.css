@@ -389,3 +389,59 @@ footer {
   font-size: 14px;
   padding-bottom: 20px;
 }
+
+/* --- МОБИЛЬНАЯ ОПТИМИЗАЦИЯ --- */
+@media (max-width: 768px) {
+    /* Навигация */
+    nav {
+    padding: 10px 15px;
+  }
+  .nav-links {
+    display: none; /* Скрываем ссылки*/
+  }
+/*Hero*/
+    .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    margin-top: 80px;
+  }
+  .game-img {
+    width: 150px; /* Уменьшаем картинку */
+    margin-bottom: 20px;
+  }
+  .hero-content h1 {
+    font-size: 1.8rem;
+  }
+/* Список кланов */
+    .clan-card {
+    padding: 10px;
+    flex-wrap: wrap; /* Разрешаем перенос элементов */
+    justify-content: space-between;
+  }
+  .clan-name {
+    width: auto;
+    order: 2; /* Меняем порядок */
+    font-size: 1rem;
+  }
+    .clan-avatar-container {
+    order: 1;
+    margin-right: 10px;
+  }
+    .clan-leader {
+    width: 100%; /* Лидер на новую строку */
+    text-align: left;
+    order: 4;
+    padding: 5px 0 0 45px;
+  }
+  .clan-prestige {
+    order: 3;
+    width: auto;
+    text-align: right;
+  }
+/*Модальное окно*/
+  .modal-content {
+    width: 90%;
+    padding: 20px;
+  }
+}
