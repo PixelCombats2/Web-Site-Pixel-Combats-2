@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Pixel Combats 2 - Official</title>
+	<!-- Подключаем современный шрифт -->
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+	<link rel="icon" href="img/icon/PC2-icon.webp">
+</head>
+<body>
+<!-- Навигация -->
+  <nav>
+    <div class="logo">FIREPLACE🔥</div>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#Home">Главная</a></li>
+        <li><a href="#">Новости</a></li>
+        <li><a href="#Cybersport">Киберспорт</a></li>
+        <li><a href="Pages/Rules/rules.html" target="_blank">Правила</a></li>
+        <li><a href="#Contacts">Контакты</a></li>
+    </ul>
+    <div class="nav-icons">
+        <div class="profile-icon">
+            <img src="img/icon/user.png" alt="profile" width="35px" height="35px">
+        </div>
+        <!-- Полоски меню -->
+        <div class="menu-icon" id="menuIcon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
+  <div class="container" id="Home">
+<!-- Секция с описанием игры -->
+  <section class="hero">
+    <img src="img/icon/PC2-icon.webp" alt="Pixel Combats 2" class="game-img" onerror="this.src='https://via.placeholder.com/400x400?text=Pixel+Combats+2'">
+    <div class="hero-content">
+      <h1>Pixel Combats 2</h1>
+	    <p>
+Многопользовательский пиксельный шутер с элементами строительства и разрушения карт. 
+Сражайтесь в режиме TDM 12 на 12, выживайте среди зомби или стройте собственные уникальные базы. 
+Огромный арсенал оружия и полная свобода действий ждут тебя! Скачивай игру и присоединяйся
+	  	</p>
+    <div class="btn-group">
+	<a href="https://play.google.com/store/apps/details?id=com.pixel.gun.combats" class="btn btn-green">Скачать на Android</a>
+	<a href="#" class="btn btn-orange">Скачать на ПК (скоро)</a>
+  </div>
+  </div>
+	</section>
+	<!-- Киберспорт -->
+<!-- Секция Топ Кланов -->
+	<section class="clans-section" id="Cybersport">
+  	<h2>🏆ТОП СИЛЬНЕЙШИХ КЛАНОВ🏆</h2>
+  	<div class="clans-list" id="clansList">
+<!-- через JS -->
+  	</div>
+	<p class="last-updated">Обновлено: <span id="currentDate">--.--.----</span></p>
+  </section>
+	</div>
+  <!-- Модальное окно регистрации -->
+<div id="regModal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>Регистрация</h2>
+        <form id="regForm">
+            <div class="input-group">
+                <input type="text" placeholder="Ваш никнейм" required>
+            </div>
+            <div class="input-group">
+                <input type="text" maxlength="16" placeholder="ID в игре" required>
+            </div>
+            <div class="input-group">
+                <input type="email" placeholder="Email" required>
+            </div>
+            <div class="input-group">
+                <input type="password" placeholder="Пароль" maxlength="12" required>
+            </div>
+            <div class="input-group">
+                <input type="password" placeholder="Повторите пароль" maxlength="12" required>
+            </div>
+            <button type="submit" class="btn-submit">Создать аккаунт</button>
+        </form>
+    </div>
+</div>
+<!-- Скрипт -->
+ <script src="Scripts/script.js"></script>
+ <script>
+    const clans = [
+        { name: "Monolith", leader: "K1lls", logo: "img/clans/Monolith.jpg", prestige: "32", color: "green", wins: 0},
+        { name: "StarKem", leader: "Freak", logo: "img/clans/.jpg", prestige: "13", color: "green", wins: 0},
+        { name: "Tod2", leader: "Azazel", logo: "img/clans/Империум.jpg", prestige: "8", color: "red" },
+        { name: "EJTX", leader: "Сияxz, Живчик", logo: "img/clans/JSST.jpg", prestige: "7", color: "grey" },
+        { name: "Tod3", leader: "", logo: "", prestige: "0", color: "grey" },
+        { name: "FUN", leader: "Asriel", logo: "img/clans/FUN.jpg", prestige: "14", color: "grey", wins: 0 },
+        { name: "555G", leader: "Вошвер", logo: "", prestige: "0", color: "grey" },
+        { name: "Empire 100", leader: "Будар", logo: "", prestige: "0", color: "grey" },
+    ];
+    const list = document.getElementById('clansList');
+    if (list) {
+        list.innerHTML = ''; 
+        clans.forEach((clan, i) => {
+            const item = document.createElement('div');
+            item.className = 'clan-card';
+            //Цвета для ТОП-3
+            let rankColor = '#94a3b8';
+            let hasSpecialBorder = false;
+
+            if(i === 0) { 
+                rankColor = '#ffd700';
+                hasSpecialBorder = true;
+            } 
+            else if(i === 1) { 
+                rankColor = '#c0c0c0';
+                hasSpecialBorder = true;
+            } 
+            else if(i === 2) { 
+                rankColor = '#cd7f32';
+                hasSpecialBorder = true;
+            }
+
+            if (hasSpecialBorder) {
+                item.style.border = `3px solid ${rankColor}`;
+                item.style.boxShadow = `0 0 15px ${rankColor}33`; //прозрачность
+            }
+            //Цвет престижа
+            let prestigeColorClass = 'p-grey';
+            if (clan.color === 'green') prestigeColorClass = 'p-green';
+            if (clan.color === 'red') prestigeColorClass = 'p-red';
+
+            const label = (i < 5) ? "prestige: " : "";
+
+            const avatarBorderStyle = (i < 3) 
+                ? `border: 2px solid ${rankColor};` 
+                : `border: 2px solid rgba(255, 255, 255, 0.1);`;
+
+            item.innerHTML = `
+                <div class="rank" style="color: ${rankColor}; width: 30px; font-weight: bold;">${i + 1}.</div>
+                <div class="clan-avatar-container" style="${avatarBorderStyle}">
+                    <img src="${clan.logo}" alt="Лого" onerror="this.src='https://via.placeholder.com/45/334155/f8fafc?text=? '">
+                </div>
+                <div class="clan-name">${clan.name}
+                    ${clan.wins !== undefined ? `<span class="clan-wins-text">Win: ${clan.wins}💥</span>` : ''}</div>
+                <div class="clan-leader">Лидер: <span style="color: ${clan.leaderColor || 'inherit'}">${clan.leader}</span></div>
+                <div class="clan-prestige">
+                    ${label}<span class="${prestigeColorClass}">${clan.prestige}</span>
+                </div>
+            `;
+            list.appendChild(item);
+        });
+    }
+    const dateEl = document.getElementById('currentDate');
+    if (dateEl) dateEl.innerText = new Date().toLocaleDateString();
+</script>
+<!-- Секция ТОП Сильнейших Игроков -->
+<section class="players-section" id="Players">
+    <h2>🏆ТОП СИЛЬНЕЙШИХ ИГРОКОВ🏆</h2>
+    
+    <div class="players-list" id="playersList">
+        <!-- Карточки игроков будут генерироваться через JavaScript -->
+    </div>
+    
+    <p class="last-updated">Обновлено: <span id="playersDate">--.--.----</span></p>
+</section>
+<script>
+ // База данных игроков
+const players = [
+    { name: "Freak", kd: "2.45", pn: "80", logo: "" },        // 1 место (Голубой)
+    { name: "K1lls", kd: "2.10", pn: "80", logo: "" },       // 2 место (Золотистый)
+    { name: "Junger", kd: "1.95", pn: "0", logo: "" },        // 3 место (Золотистый)
+    { name: "Ggsh", kd: "1.80", pn: "25", logo: "" },         // 4 место (Бордовый)
+    { name: "Divanchik", kd: "1.75", pn: "25", logo: "" },    // 5 место (Бордовый)
+    { name: "Жук", kd: "1.65", pn: "0", logo: "" },          // 6 место (Серебристый)
+    { name: "Paranoia", kd: "1.50", pn: "0", logo: "" },     // 7 место (Серебристый)
+    { name: "St1lz", kd: "1.45", pn: "0", logo: "" },        // 8 место (Обычные игроки)
+    { name: "aLphaTr1on", kd: "1.40", pn: "0", logo: "" },   // 9 место
+    { name: "Unixie", kd: "1.35", pn: "0", logo: "" },       // 10 место
+    { name: "ENJOY", kd: "1.30", pn: "45", logo: "" },       // 11 место
+    { name: "Istina", kd: "1.25", pn: "0", logo: "" },       // 12 место
+    { name: "Raptor", kd: "1.20", pn: "10", logo: "" },      // 13 место
+    { name: "Wick", kd: "1.10", pn: "5", logo: "" },         // 14 место
+    { name: "Zeus", kd: "0.90", pn: "0", logo: "" }          // 15 место
+];
+
+const playersList = document.getElementById('playersList');
+
+if (playersList) {
+    playersList.innerHTML = '';
+    
+    players.forEach((player, i) => {
+        
+        // 1. Проверяем, нужно ли вставить картинку-ранг над карточкой
+        let rankImageSrc = '';
+        if (i === 0) {
+            rankImageSrc = 'img/ranks/rank_cyan.png';      // Путь к иконке для 1 места (Голубой)
+        } else if (i === 1) {
+            rankImageSrc = 'img/ranks/rank-gold.jpg';      // Путь к иконке для 2-3 места (Золотой)
+        } else if (i === 3) {
+            rankImageSrc = 'img/ranks/rank_burgundy.png';  // Путь к иконке для 4-5 места (Бордовый)
+        } else if (i === 5) {
+            rankImageSrc = 'img/ranks/rank_silver.png';    // Путь к иконке для 6-7 места (Серебряный)
+        } else if (i === 7) {
+            rankImageSrc = 'img/ranks/rank_regular.png';   // Путь к иконке для остальных мест (8-15)
+        }
+
+        // Если иконка задана, создаем элемент разделителя и добавляем в список
+        if (rankImageSrc) {
+            const divider = document.createElement('div');
+            divider.className = 'rank-divider-container';
+            divider.innerHTML = `<img src="${rankImageSrc}" alt="Rank Emblem" onerror="this.parentNode.style.display='none'">`;
+            playersList.appendChild(divider);
+        }
+
+        // 2. Создаем карточку игрока
+        const item = document.createElement('div');
+        item.className = 'player-card';
+        
+        let rankColor = '';
+        let hoverBgColor = ''; // Цвет фона при наведении (темная версия основного цвета)
+        let hasSpecialBorder = false;
+        
+        // Настройка цветов рамок и их подсветок при наведении
+        if (i === 0) { 
+            rankColor = '#00d2ff'; // Голубой
+            hoverBgColor = 'rgba(0, 210, 255, 0.08)';
+            hasSpecialBorder = true;
+        } else if (i === 1 || i === 2) { 
+            rankColor = '#ffd700'; // Золотистый
+            hoverBgColor = 'rgba(255, 215, 0, 0.08)';
+            hasSpecialBorder = true;
+        } else if (i === 3 || i === 4) { 
+            rankColor = '#9b1c1c'; // Бордовый
+            hoverBgColor = 'rgba(155, 28, 28, 0.15)';
+            hasSpecialBorder = true;
+        } else if (i === 5 || i === 6) { 
+            rankColor = '#cbd5e1'; // Серебристый
+            hoverBgColor = 'rgba(203, 213, 225, 0.06)';
+            hasSpecialBorder = true;
+        } else {
+            // Для остальных игроков (8-15 места) стандартный темно-серый фон при наведении
+            hoverBgColor = 'rgba(255, 255, 255, 0.05)';
+        }
+        
+        // Применяем рамку толщиной 1.5px и мягкую тень
+        if (hasSpecialBorder) {
+            item.style.border = `1.5px solid ${rankColor}`;
+            item.style.boxShadow = `0 0 7px ${rankColor}22`; // 22 — легкая прозрачность тени
+        }
+        
+        // Передаем темный цвет фона в CSS переменную для анимации наведения!
+        item.style.setProperty('--rank-hover-bg', hoverBgColor);
+        
+        // Цвета текста
+        const currentRankColor = rankColor ? rankColor : 'inherit';
+        const nameColor = rankColor ? rankColor : 'white';
+        const avatarBorderStyle = rankColor 
+            ? `border: 1.5px solid ${rankColor};` 
+            : `border: 1.5px solid rgba(255, 255, 255, 0.15);`;
+        
+        const playerLogo = player.logo ? player.logo : "img/icon/user.png";
+
+        item.innerHTML = `
+            <div class="player-rank" style="color: ${currentRankColor}">${i + 1}.</div>
+            <div class="player-avatar-container" style="${avatarBorderStyle}">
+                <img src="${playerLogo}" alt="Avatar" onerror="this.src='https://via.placeholder.com/32/0f172a/ffffff?text=P'">
+            </div>
+            <div class="player-name" style="color: ${nameColor}">${player.name}</div>
+            <div class="player-kd">K/D: ${player.kd}</div>
+            <div class="player-pn">Pn: <span style="color: ${rankColor ? rankColor : '#94a3b8'}">${player.pn}</span></div>
+        `;
+        
+        playersList.appendChild(item);
+    });
+}
+
+// Запись даты
+const playersDateEl = document.getElementById('playersDate');
+if (playersDateEl) {
+    playersDateEl.innerText = new Date().toLocaleDateString();
+}
+</script>
+  <!-- Футер -->
+	   <footer id="Contacts">
+    <div class="social">
+      <a href="https://t.me/F1rePlaze">
+        <img src="img/icon/icon-tg.svg" alt="Telegram" class="tg"  width="50px" height="50px">
+      </a>
+    </div>
+    <div class="f-main-text">
+      <a href="#" class="f-text">
+        Info |&nbsp;</a>
+      <a href="#" class="f-text">Support |&nbsp;</a>
+      <a href="#" class="f-text">Privacy Policy</a>
+    </div>
+    <h1 class="copyright">
+     <p>&copy;2026 Fireplace / ENJOY Games. Все права защищены</p> 
+    </h1>
+   </footer>
+</body>
+</html>
