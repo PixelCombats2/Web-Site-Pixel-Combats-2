@@ -7,6 +7,15 @@
   --text-dim: #94a3b8;
   --nav-bg: rgba(3, 10, 26, 0.8);
 }
+html {
+  scroll-behavior: smooth;
+}
+section[id], 
+footer[id],
+#Home {
+  scroll-margin-top: 90px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -64,7 +73,7 @@ nav {
   align-items: center;
   cursor: pointer;
 }
-/* Регистрация */
+/* Регистрация акк*/
 .modal-overlay {
   display: none;
   position: fixed;
@@ -79,24 +88,24 @@ nav {
   align-items: center;
 }
 .modal-content {
-    background: #1e293b;
-    padding: 40px;
-    border-radius: 24px;
-    width: 100%;
-    max-width: 400px;
-    position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    text-align: center;
+  background: #1e293b;
+  padding: 40px;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  text-align: center;
 }
 .close-modal {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 28px;
-    color: #94a3b8;
-    cursor: pointer;
-    transition: 0.3s;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 28px;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: 0.3s;
 }
 .close-modal:hover {
   color: white;
@@ -215,6 +224,122 @@ nav {
   background-repeat: no-repeat;
   background-position-x: center;
 }
+/* --- СЕКЦИЯ НОВОСТЕЙ --- */
+.news-section {
+  background: var(--card-bg);
+  padding: 40px;
+  border-radius: 24px;
+  margin: 40px auto;
+  max-width: 1200px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.news-section h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  color: white;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.news-card {
+  background: rgba(15, 23, 42, 0.4); /* Чуть темнее основного фона карточки */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.news-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent-orange);
+  box-shadow: 0 10px 25px rgba(245, 158, 11, 0.15);
+}
+
+.news-img-container {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  background: #0f172a;
+}
+
+.news-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.news-card:hover .news-img-container img {
+  transform: scale(1.05);
+}
+
+.news-info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.news-card-date {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.news-card-title {
+  font-size: 1.25rem;
+  color: var(--text-main);
+  margin-bottom: 10px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.news-desc {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.news-btn {
+  align-self: flex-start;
+  background: transparent;
+  border: 1px solid var(--accent-orange);
+  color: var(--text-main);
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.news-btn:hover {
+  background: var(--accent-orange);
+  color: white;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+}
+
+/* Адаптивность для новостей */
+@media (max-width: 850px) {
+  .news-section {
+    padding: 25px 20px;
+    margin: 20px 10px;
+  }
+  .news-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Киберспорт */
 /* Таблица Кланов */
 .clans-section {
@@ -293,7 +418,7 @@ nav {
   color: #94a3b8; 
 }                         
 .clan-prestige {
-  width: 100px; /* Ширина престижа */
+  width: 100px;
   text-align: right;
   color: #94a3b8;
   font-size: 0.9rem;
@@ -305,18 +430,18 @@ nav {
   color: var(--text-dim);
   font-size: 0.8rem;
 }
-/* Стили для количества побед */
+/* Стили для кол-ва побед */
 .clan-wins-text {
-    font-size: 0.85rem;
-    color: var(--text-dim);
-    margin-left: 20px; /* отступ от названия клана */
-    font-weight: normal;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-left: 20px; /* отступ от назв клана */
+  font-weight: normal;
 }
 .clan-wins {
-    font-size: 0.9rem;
-    color: var(--accent-green); /* Или --text-dim */
-    margin-left: 15px;
-    white-space: nowrap;
+  font-size: 0.9rem;
+  color: var(--accent-green); /* Или --text-dim */
+  margin-left: 15px;
+  white-space: nowrap;
 }
 /* Адаптивность */
 @media (max-width: 850px) {
@@ -329,12 +454,12 @@ nav {
 .clan-avatar-container {
   width: 45px;
   height: 45px;
-  min-width: 45px; /* Чтобы она не сжималась */
+  min-width: 45px;
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid rgba(255, 255, 255, 0.1);
   background: #0f172a;
-  margin: 0 15px; /* Отступы по бокам */
+  margin: 0 15px;
 }
 .clan-avatar-container img {
   width: 100%;
@@ -351,155 +476,135 @@ nav {
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 .clan-name {
-  flex-grow: 1; /* Название занимает свободное место */
+  flex-grow: 1;
   font-weight: 600;
 }
 .clan-leader {
   color: var(--text-dim);
   font-size: 0.85rem;
 }
-/* --- СЕКЦИЯ ИГРОКОВ (КОМПАКТНАЯ ПАНЕЛЬ) --- */
+/* СЕКЦИЯ ИГРОКОВ(КОМПАКТНАЯ ПАНЕЛЬ) */
 .players-section {
-    background: var(--card-bg);
-    padding: 30px 40px;
-    border-radius: 24px;
-    margin: 40px auto;
-    max-width: 1000px; /* Суженная панель по сравнению с кланами */
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  background: var(--card-bg);
+  padding: 30px 40px;
+  border-radius: 24px;
+  margin: 40px auto;
+  max-width: 1000px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
-
 .players-section h2 {
-    text-align: center;
-    margin-bottom: 15px; /* Уменьшили отступ, так как ниже появятся ранги */
-    font-size: 1.8rem;
-    color: white;
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+  color: white;
 }
-
 .players-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
-
-/* Красивые центрированные разделители-ранги */
+/* разделители-ранги */
 .rank-divider-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0 10px 0; /* Отступы сверху и снизу изображения */
-    width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0 10px 0;
+  width: 100%;
 }
-
-/* Убираем верхний отступ для самого первого ранга, чтобы не было пустоты */
 .players-list .rank-divider-container:first-of-type {
-    margin-top: 5px;
+  margin-top: 5px;
 }
-
 .rank-divider-container img {
-    height: 48px; /* Идеальный размер для иконки ранга */
-    object-fit: contain;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4)); /* Эффект тени для иконки */
+  height: 48px; /* Идеальный размер для иконки ранга */
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4)); /* Эффект тени для иконки */
 }
-
 /* Компактная карточка игрока */
 .player-card {
-    display: grid;
-    grid-template-columns: 45px 45px 2fr 1fr 1fr;
-    align-items: center;
-    padding: 10px 20px;
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 10px;
-    transition: background 0.25s ease, transform 0.2s ease, border-color 0.2s ease;
-    border: 1px solid rgba(255, 255, 255, 0.04);
+  display: grid;
+  grid-template-columns: 45px 45px 2fr 1fr 1fr;
+  align-items: center;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+  transition: background 0.25s ease, transform 0.2s ease, border-color 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.04);
 }
-
-/* Эффект наведения с динамическим цветом заднего фона */
+/* Эффект наведениям заднего фона */
 .player-card:hover {
-    /* Если переменная --rank-hover-bg не передана, сработает дефолтный серый */
-    background: var(--rank-hover-bg, rgba(255, 255, 255, 0.05));
-    transform: translateX(4px);
+  background: var(--rank-hover-bg, rgba(255, 255, 255, 0.05));
+  transform: translateX(4px);
 }
-
 /* Номер места */
 .player-rank {
-    font-weight: 800;
-    font-size: 1.1rem;
-    color: var(--text-dim);
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--text-dim);
 }
-
 /* Аватар */
 .player-avatar-container {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    overflow: hidden;
-    background: #0f172a;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1.5px solid rgba(255, 255, 255, 0.15);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
 }
-
 .player-avatar-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
-
 /* Никнейм */
 .player-name {
-    font-weight: 600;
-    font-size: 1.05rem;
-    color: white;
-    padding-left: 10px;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: white;
+  padding-left: 10px;
 }
-
 /* Статистика K/D и Pn */
 .player-kd {
-    color: #1eff00;
-    font-weight: bold;
-    font-size: 0.95rem;
+  color: #1eff00;
+  font-weight: bold;
+  font-size: 0.95rem;
 }
-
 .player-pn {
-    color: #94a3b8;
-    font-size: 0.95rem;
-    text-align: right;
+  color: #94a3b8;
+  font-size: 0.95rem;
+  text-align: right;
 }
-
 .player-pn span {
-    font-weight: bold;
+  font-weight: bold;
+}
+/* --- Оптимизация под моб устройства --- */
+@media (max-width: 850px) {
+  .players-section {
+      padding: 20px 15px;
+      margin: 20px 10px;
+}  
+.rank-divider-container img {
+  height: 40px; /* Чуть меньше на экранах телефонов */
+}
+.player-card {
+  padding: 10px 15px;
+  grid-template-columns: 35px 35px 1fr;
+  grid-template-areas: 
+    "rank avatar name"
+    "kd kd pn";
+  gap: 6px;
+    }
+.player-rank {
+  grid-area: rank;
+  font-size: 1rem;
 }
 
-/* --- Оптимизация под мобильные устройства (до 850px) --- */
-@media (max-width: 850px) {
-    .players-section {
-        padding: 20px 15px;
-        margin: 20px 10px;
-    }
-    
-    .rank-divider-container img {
-        height: 40px; /* Чуть меньше на экранах телефонов */
-    }
-
-    .player-card {
-        padding: 10px 15px;
-        grid-template-columns: 35px 35px 1fr;
-        grid-template-areas: 
-            "rank avatar name"
-            "kd kd pn";
-        gap: 6px;
-    }
-
-    .player-rank {
-        grid-area: rank;
-        font-size: 1rem;
-    }
-
-    .player-avatar-container {
-        grid-area: avatar;
-        width: 28px;
-        height: 28px;
+.player-avatar-container {
+      grid-area: avatar;
+      width: 28px;
+      height: 28px;
     }
 
     .player-name {
