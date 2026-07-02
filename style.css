@@ -6,6 +6,7 @@
   --text-main: #f8fafc;
   --text-dim: #94a3b8;
   --nav-bg: rgba(3, 10, 26, 0.8);
+  --red-color: #ef4444;
 }
 html {
   scroll-behavior: smooth;
@@ -15,7 +16,6 @@ footer[id],
 #Home {
   scroll-margin-top: 90px;
 }
-
 * {
   margin: 0;
   padding: 0;
@@ -132,7 +132,7 @@ nav {
   box-shadow: 0 0 10px rgba(245, 158, 11, 0.2);
 }
 .btn-submit {
-  width: 100%;
+  width: 50%;
   padding: 14px;
   background: var(--text-dim);
   border: none;
@@ -145,6 +145,22 @@ nav {
 }
 .btn-submit:hover {
   background: #1eff00;
+  transform: translateY(-2px);
+}
+.btn-regist {
+  width: 45%;
+  padding: 14px;
+  background: var(--text-dim);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 10px;
+}
+.btn-regist:hover {
+  background: #d28b11;
   transform: translateY(-2px);
 }
 /* Hero */
@@ -328,7 +344,168 @@ nav {
   color: white;
   box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
 }
+/* Контейнер карусели */
+.news-carousel-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 10px 0 20px 0; /* отступы сверху и снизу, чтобы тени при наведении не обрезались */
+}
 
+.news-grid {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto; /* Включаем горизонтальную прокрутку */
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Прячем полосу прокрутки */
+  
+  /* --- МАГНИТНЫЙ ЭФФЕКТ --- */
+  scroll-snap-type: x mandatory; /* Включаем прилипание по оси X */
+  padding: 10px; /* внутренний отступ для компенсации теней */
+}
+
+.news-grid::-webkit-scrollbar { 
+  display: none; /* Прячем полосу прокрутки для Chrome/Safari */
+}
+
+/* Карточка новости (ИСПРАВЛЕННАЯ ВЕРСТКА) */
+.news-card {
+  width: 350px; /* Фиксированная ширина карточки */
+  min-width: 350px; /* Не даем ей сжиматься в flex-контейнере */
+  height: 480px; /* Фиксированная высота всей карточки, чтобы они были одинаковыми */
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column; /* Элементы внутри идут сверху вниз */
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  
+  /* --- МАГНИТНЫЙ ЭФФЕКТ ДЛЯ КАРТОЧКИ --- */
+  scroll-snap-align: center; /* Карточка будет центрироваться при остановке прокрутки */
+}
+
+.news-img-container {
+  width: 100%;
+  height: 180px; /* Фиксированная высота картинки */
+  overflow: hidden;
+  background: #0f172a;
+}
+
+.news-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Ограничиваем описание, чтобы кнопки всегда были на одном уровне */
+.news-desc {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.5;
+  margin-bottom: 20px;
+  flex-grow: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+}
+
+/* Стрелки */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(5px);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  transition: 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+}
+
+.arrow:hover { 
+  background: var(--accent-orange); 
+  border-color: var(--accent-orange);
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+}
+.arrow-left { left: -22px; }
+.arrow-right { right: -22px; }
+
+/* Адаптивность для мобилок */
+@media (max-width: 850px) {
+  .news-card {
+    width: 290px;
+    min-width: 290px;
+    height: 450px;
+  }
+  .arrow {
+    display: none;
+  }
+}
+
+    /* Контейнер для кнопок "Читать" и "Лайк" */
+    .news-actions {
+      display: flex;
+      justify-content: space-between; /* Расставляет элементы по краям */
+      align-items: center; /* Выравнивает элементы по центру по вертикали */
+      margin-top: auto; /* Прижимает блок к низу news-info */
+      padding-top: 15px; /* Отступ сверху */
+      border-top: 1px solid rgba(255, 255, 255, 0.05); /* Разделительная линия */
+    }
+
+    /* Оболочка кнопки лайка, чтобы было удобнее кликать */
+    .like-button-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 5px; /* Отступ между сердцем и счетчиком */
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      padding: 5px 8px; /* Немного увеличиваем область для клика */
+      border-radius: 20px; /* Скругляем, чтобы выглядело органично */
+    }
+
+    .like-button-wrapper:hover {
+      transform: translateY(-2px);
+      opacity: 0.8;
+    }
+
+    /* Иконка сердца */
+    .like-icon {
+      width: 32px; /* Ширина круга */
+      height: 32px; /* Высота круга */
+      border: 1.5px solid var(--text-dim); /* Серебряная граница */
+      border-radius: 50%; /* Делаем круглым */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2em; /* Размер сердца */
+      color: var(--text-dim); /* Цвет пустого сердца */
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    /* Стили для кнопки после "лайка" */
+    .like-button-wrapper.liked .like-icon {
+      color: var(--red-color); /* Красное сердце */
+      border-color: var(--red-color); /* Красная граница */
+    }
+
+    /* Счетчик лайков */
+    .like-count {
+      font-size: 0.9em;
+      color: var(--text-dim);
+      font-weight: 500;
+      min-width: 10px; /* Чтобы не скакало при появлении */
+      text-align: center;
+    }
 /* Адаптивность для новостей */
 @media (max-width: 850px) {
   .news-section {
@@ -515,9 +692,9 @@ nav {
   margin-top: 5px;
 }
 .rank-divider-container img {
-  height: 48px; /* Идеальный размер для иконки ранга */
+  height: 48px;
   object-fit: contain;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4)); /* Эффект тени для иконки */
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
 }
 /* Компактная карточка игрока */
 .player-card {

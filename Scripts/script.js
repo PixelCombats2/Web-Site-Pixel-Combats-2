@@ -51,29 +51,35 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 // --- ДАННЫЕ ДЛЯ СЕКЦИИ НОВОСТЕЙ ---
-const newsData = [
-  {
-    title: "Режим The ClanWars",
-    date: "29.06.2026",
-    image: "img/news/update1.5.jpg", // Сюда укажи путь к картинке новости
-    description: "Соревновательный режим 1 vs 1 с наблюдателями от игрока Nick, будет использован аналитикой для проведения турниров или игр на топ",
-    link: "#"
-  },
-  {
-    title: "Турнир Fireplace Vidente G1",
-    date: "30.06.2026",
-    image: "img/News/Setka.avif",
-    description: "Регистрация на первый официальный турнир с общим призовым фондом официально открыта! Собирайте команду, подавайте заявки и докажите, что ваш клан — сильнейший.",
-    link: "#"
-  },
-  {
-    title: "Клан StarKem становится ТОП 1🏆",
-    date: "27.06.2026",
-    image: "img/news/prestige.jpg",
-    description: "Monolith проиграл со счетом 2/1 клану SK. Смирятся ли они с поражением или бросят вызов?",
-    link: "#"
-  }
-];
+    const newsData = [
+      
+      {
+        title: "Турнир Fireplace Vidente G1",
+        date: "03.07.2026",
+        image: "img/News/Setka.avif",
+        description: "Регистрация на первый официальный турнир с общим призовым фондом официально открыта! Собирайте команду, подавайте заявки и докажите, что ваш клан - сильнейший.",
+        link: "#",
+        likes: 0
+      },
+      {
+        title: "Новый режим The ClanWars",
+        date: "02.07.2026",
+        image: "img/news/update1.5.jpg",
+        description: "Клановые войны любого формата с наблюдателями от игрока Nick. Новый режим для КВ и игр на топ будет доступен совсем скоро!",
+        link: "#",
+        likes: 0
+      },
+      {
+        title: "Новая система Престижа",
+        date: "01.07.2026",
+        image: "img/news/prestige.jpg",
+        description: "Мы полностью изменили систему престижа, теперь он более четкий и балансный",
+        link: "#",
+        likes: 0
+      }
+    ];
+    
+
 // Рендеринг новостей
 const newsGrid = document.getElementById('newsGrid');
 if (newsGrid) {
@@ -91,14 +97,50 @@ if (newsGrid) {
         <span class="news-card-date">${news.date}</span>
         <h3 class="news-card-title">${news.title}</h3>
         <p class="news-desc">${news.description}</p>
-        <a href="${news.link}" class="news-btn">Читать</a>
+        <div class="news-actions">
+          <a href="${news.link}" class="news-btn">Читать</a>
+          <div class="like-button-wrapper" data-news-id="${news.id}">
+            <span class="like-icon" data-liked="false">♡</span> <!-- Пустое сердце -->
+            <span class="like-count"></span> <!-- Пустой счетчик лайков -->
+          </div>
+        </div>
       </div>
     `;
-    
+
+    newsGrid.appendChild(card);
+
+    const likeButtonWrapper = card.querySelector(`.like-button-wrapper[data-news-id="${news.id}"]`);
+    const likeIcon = likeButtonWrapper.querySelector('.like-icon');
+    const likeCountSpan = likeButtonWrapper.querySelector('.like-count');
+
+    likeButtonWrapper.addEventListener('click', () => {
+      if (likeIcon.dataset.liked === 'false') {
+        // СТАВИМ ЛАЙК:
+        likeIcon.textContent = '♥️';
+        likeCountSpan.textContent = '1';
+        likeIcon.dataset.liked = 'true';
+        likeButtonWrapper.classList.add('liked');
+      } else {
+        // УБИРАЕМ ЛАЙК:
+        likeIcon.textContent = '♡';
+        likeCountSpan.textContent = '';
+        likeIcon.dataset.liked = 'false';
+        likeButtonWrapper.classList.remove('liked');
+      }
+    });
+
     newsGrid.appendChild(card);
   });
 }
-// Обновление даты последнего обновления новостей
+
+function scrollNews(amount) {
+  const container = document.getElementById('newsGrid');
+  container.scrollBy({
+    left: amount,
+    behavior: 'smooth'
+  });
+}
+
 const newsDateEl = document.getElementById('newsDate');
 if (newsDateEl) {
   newsDateEl.innerText = new Date().toLocaleDateString();

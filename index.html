@@ -52,11 +52,13 @@
   <!-- СЕКЦИЯ НОВОСТЕЙ -->
 <section id="News" class="news-section">
     <h2>Последние Новости</h2>
-    <div class="news-grid" id="newsGrid">
-        <!-- Карточки новостей будут генерироваться автоматически через JS -->
+    <div class="news-carousel-wrapper">
+        <button class="arrow arrow-left" onclick="scrollNews(-370)">❮</button>
+        <div class="news-grid" id="newsGrid"></div>
+        <button class="arrow arrow-right" onclick="scrollNews(370)">❯</button>
     </div>
-    <p class="last-updated">Обновлено: <span id="newsDate">--.--.----</span></p>
 </section>
+
 
 	<!-- Киберспорт -->
 <!-- Секция Топ Кланов -->
@@ -68,7 +70,7 @@
 	<p class="last-updated">Обновлено: <span id="currentDate">--.--.----</span></p>
   </section>
 	</div>
-  <!-- Модальное окно регистрации -->
+  <!-- Модал окно регистрации -->
 <div id="regModal" class="modal-overlay">
     <div class="modal-content">
         <span class="close-modal">&times;</span>
@@ -90,6 +92,7 @@
                 <input type="password" placeholder="Повторите пароль" maxlength="12" required>
             </div>
             <button type="submit" class="btn-submit">Создать аккаунт</button>
+            <button type="submit" class="btn-regist">Войти</button>
         </form>
     </div>
 </div>
@@ -97,15 +100,15 @@
  <script src="Scripts/script.js"></script>
  <script>
     const clans = [
-        { name: "StarKem", leader: "Freak", logo: "img/clans/StarKem.jpg", prestige: "13", color: "green", wins: 0},
-        { name: "Monolith", leader: "K1lls", logo: "img/clans/Monolith.jpg", prestige: "30", color: "green", wins: 0},
-        { name: "Империум", leader: "Azazel", logo: "img/clans/Империум.jpg", prestige: "8", color: "red" },
-        { name: "EJTX", leader: "Сияxz", logo: "img/clans/JSST.jpg", prestige: "7", color: "grey" },
-        { name: "Tod3", leader: "", logo: "", prestige: "0", color: "grey" },
+        { name: "StarKem", leader: "Freak", logo: "img/clans/StarKem.jpg", prestige: "19", color: "green", wins: 0},
+        // { name: "Monolith", leader: "K1lls", logo: "img/clans/Monolith.jpg", prestige: "28", color: "red", wins: 0},
+        { name: "Империум", leader: "Azazel", logo: "img/clans/Империум.jpg", prestige: "14", color: "green", wins: 0},
+        { name: "JestraTeam", leader: "Сияxz", logo: "img/clans/JestraTeam.jpg", prestige: "13", color: "green", wins: 0 },
+        { name: "TFE", leader: "Napoleon", logo: "", prestige: "4", color: "green", wins: 0 },
+        { name: "Tod3", leader: "", logo: "", prestige: "3", color: "green", wins: 0 },
         { name: "FUN", leader: "Asriel", logo: "img/clans/FUN.jpg", prestige: "14", color: "grey", wins: 0 },
-        { name: "SuperUnixe", leader: "EMRY", logo: "", prestige: "0", color: "grey" },
-        { name: "JestraNew", leader: "", logo: "", prestige: "0", color: "grey" },
-        { name: "Empire 100", leader: "Будар", logo: "", prestige: "0", color: "grey" },
+        { name: "SuperUnixe", leader: "EMRY", logo: "", prestige: "0", color: "grey", wins: 0 },
+        { name: "Empire 100", leader: "Будар", logo: "", prestige: "0", color: "grey", wins: 0 },
     ];
     const list = document.getElementById('clansList');
     if (list) {
@@ -169,7 +172,7 @@
     <h2>🏆ТОП СИЛЬНЕЙШИХ ИГРОКОВ🏆</h2>
     
     <div class="players-list" id="playersList">
-        <!-- Карточки игроков будут генерироваться через JS -->
+        
     </div>
     
     <p class="last-updated">Обновлено: <span id="playersDate">--.--.----</span></p>
@@ -180,9 +183,9 @@ const players = [
     { name: "K1lls", kd: "0.0", pn: "80", logo: "" },
     { name: "Conqueror", kd: "0.0", pn: "0", logo: "" },
     { name: "Stok3ll", kd: "0.0", pn: "25", logo: "" },
+    { name: "Paranoia", kd: "0.0", pn: "0", logo: "" },
     { name: "Ggsh", kd: "0.0", pn: "25", logo: "" },
     { name: "Жук", kd: "0.0", pn: "0", logo: "" },
-    { name: "Paranoia", kd: "0.0", pn: "0", logo: "" },
     { name: "St1lz", kd: "0.0", pn: "0", logo: "" },
     { name: "Divanchik", kd: "0.0", pn: "0", logo: "" },
     { name: "aLphaTr1on", kd: "0.0", pn: "0", logo: "" },
@@ -192,8 +195,9 @@ const players = [
     { name: "Istina", kd: "0.0", pn: "0", logo: "" },
     { name: "Lulu", kd: "0.0", pn: "0", logo: "" },
     { name: "Kinfer", kd: "0.0", pn: "0", logo: "" },
-    { name: "Flafi4", kd: "0.0", pn: "0", logo: "" },
+    { name: "Freddy", kd: "0.0", pn: "0", logo: "" },
     { name: "H9nto", kd: "0.0", pn: "0", logo: "" },
+    { name: "Flafi4", kd: "0.0", pn: "0", logo: "" },
     { name: "Asriel", kd: "0.0", pn: "45", logo: "" }
 ];
 
@@ -205,7 +209,7 @@ if (playersList) {
     players.forEach((player, i) => {
         let rankImageSrc = '';
         if (i === 0) {
-            rankImageSrc = 'img/ranks/rank_cyan.png';
+            rankImageSrc = 'img/ranks/rank-blue.webp';
         } else if (i === 1) {
             rankImageSrc = 'img/ranks/rank-gold.jpg';
         } else if (i === 3) {
